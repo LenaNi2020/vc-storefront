@@ -318,6 +318,12 @@ namespace VirtoCommerce.Storefront.Converters
             retVal.DiscountAmount = new Money(shipmentDto.DiscountAmount ?? 0, cart.Currency);
             retVal.TaxPercentRate = (decimal?)shipmentDto.TaxPercentRate ?? 0m;
 
+            retVal.DiscountAmountWithTax = new Money(shipmentDto.DiscountAmountWithTax ?? 0, cart.Currency);
+            retVal.PriceWithTax = new Money(shipmentDto.PriceWithTax ?? 0, cart.Currency);
+            retVal.TaxTotal = new Money(shipmentDto.TaxTotal ?? 0, cart.Currency);
+            retVal.Total = new Money(shipmentDto.Total ?? 0, cart.Currency);
+            retVal.TotalWithTax = new Money(shipmentDto.TotalWithTax ?? 0, cart.Currency);
+           
             if (shipmentDto.DeliveryAddress != null)
             {
                 retVal.DeliveryAddress = ToAddress(shipmentDto.DeliveryAddress);
@@ -424,6 +430,11 @@ namespace VirtoCommerce.Storefront.Converters
             {
                 result.BillingAddress = ToAddress(paymentDto.BillingAddress);
             }
+            result.DiscountAmountWithTax = new Money(paymentDto.DiscountAmountWithTax ?? 0, cart.Currency);
+            result.PriceWithTax = new Money(paymentDto.PriceWithTax ?? 0, cart.Currency);
+            result.TaxTotal = new Money(paymentDto.TaxTotal ?? 0, cart.Currency);
+            result.Total = new Money(paymentDto.Total ?? 0, cart.Currency);
+            result.TotalWithTax = new Money(paymentDto.TotalWithTax ?? 0, cart.Currency);
 
             result.Price = new Money(paymentDto.Price ?? 0, cart.Currency);
             result.DiscountAmount = new Money(paymentDto.DiscountAmount ?? 0, cart.Currency);
@@ -541,7 +552,19 @@ namespace VirtoCommerce.Storefront.Converters
             {
                 result.TaxDetails = cartDto.TaxDetails.Select(td => ToTaxDetail(td, currency)).ToList();
             }
-
+            result.DiscountTotal = new Money(cartDto.DiscountTotal ?? 0, currency);
+            result.DiscountTotalWithTax = new Money(cartDto.DiscountTotalWithTax ?? 0, currency);
+            result.PaymentTotal = new Money(cartDto.PaymentTotal ?? 0, currency);
+            result.PaymentTotalWithTax = new Money(cartDto.PaymentTotalWithTax ?? 0, currency);
+            result.ShippingPrice = new Money(cartDto.ShippingSubTotal ?? 0, currency);
+            result.ShippingPriceWithTax = new Money(cartDto.ShippingSubTotalWithTax ?? 0, currency);
+            result.ShippingTotal = new Money(cartDto.ShippingTotal ?? 0, currency);
+            result.ShippingTotalWithTax = new Money(cartDto.ShippingTotalWithTax ?? 0, currency);
+            result.SubTotal = new Money(cartDto.SubTotal ?? 0, currency);
+            result.SubTotalWithTax = new Money(cartDto.SubTotalWithTax ?? 0, currency);
+            result.TaxTotal = new Money(cartDto.TaxTotal ?? 0, currency);
+            result.Total = new Money(cartDto.Total ?? 0, currency);
+     
             result.DiscountAmount = new Money(cartDto.DiscountAmount ?? 0, currency);
             result.HandlingTotal = new Money(cartDto.HandlingTotal ?? 0, currency);
             result.HandlingTotalWithTax = new Money(cartDto.HandlingTotalWithTax ?? 0, currency);
@@ -702,6 +725,17 @@ namespace VirtoCommerce.Storefront.Converters
             result.ListPrice = new Money(lineItemDto.ListPrice ?? 0, currency);
             result.RequiredShipping = lineItemDto.RequiredShipping == true;
             result.SalePrice = new Money(lineItemDto.SalePrice ?? 0, currency);
+            result.DiscountAmountWithTax = new Money(lineItemDto.DiscountAmountWithTax ?? 0, currency);
+            result.DiscountTotal = new Money(lineItemDto.DiscountTotal ?? 0, currency);
+            result.DiscountTotalWithTax = new Money(lineItemDto.DiscountTotalWithTax ?? 0, currency);
+            result.ExtendedPrice = new Money(lineItemDto.ExtendedPrice ?? 0, currency);
+            result.ExtendedPriceWithTax = new Money(lineItemDto.ExtendedPriceWithTax ?? 0, currency);
+            result.ListPriceWithTax = new Money(lineItemDto.ListPriceWithTax ?? 0, currency);
+            result.PlacedPrice = new Money(lineItemDto.PlacedPrice ?? 0, currency);
+            result.PlacedPriceWithTax = new Money(lineItemDto.PlacedPriceWithTax ?? 0, currency);
+            result.SalePriceWithTax = new Money(lineItemDto.SalePriceWithTax ?? 0, currency);
+            result.TaxTotal = new Money(lineItemDto.TaxTotal ?? 0, currency);
+           
             result.TaxPercentRate = (decimal?)lineItemDto.TaxPercentRate ?? 0m;
             result.DiscountAmount = new Money(lineItemDto.DiscountAmount ?? 0, currency);
             result.TaxIncluded = lineItemDto.TaxIncluded == true;

@@ -23,6 +23,20 @@ namespace VirtoCommerce.Storefront.Model.Cart
             TaxDetails = new List<TaxDetail>();
             DynamicProperties = new List<DynamicProperty>();
             ValidationErrors = new List<ValidationError>();
+
+            DiscountAmountWithTax = new Money(currency);
+            DiscountTotal = new Money(currency);
+            DiscountTotalWithTax = new Money(currency);
+            ExtendedPrice = new Money(currency);
+            ExtendedPriceWithTax = new Money(currency);
+            ListPriceWithTax = new Money(currency);
+            PlacedPrice = new Money(currency);
+            PlacedPriceWithTax = new Money(currency);
+            SalePriceWithTax = new Money(currency);
+            TaxTotal = new Money(currency);
+
+
+
             IsValid = true;
         }
 
@@ -179,13 +193,7 @@ namespace VirtoCommerce.Storefront.Model.Cart
         /// <summary>
         /// Gets or sets the value of line item original price including tax 
         /// </summary>
-        public Money ListPriceWithTax
-        {
-            get
-            {
-                return ListPrice + ListPrice * TaxPercentRate;
-            }
-        }
+        public Money ListPriceWithTax { get; set; }
 
         /// <summary>
         /// Gets or sets the value of line item sale price
@@ -195,79 +203,31 @@ namespace VirtoCommerce.Storefront.Model.Cart
         /// <summary>
         /// Gets or sets the value of line item sale price with tax
         /// </summary>
-        public Money SalePriceWithTax
-        {
-            get
-            {
-                return SalePrice + SalePrice * TaxPercentRate;
-            }
-        }
+        public Money SalePriceWithTax { get; set; }
 
         /// <summary>
         /// Gets the value of line item actual price (include all types of discounts)
         /// </summary>
-        public Money PlacedPrice
-        {
-            get
-            {
-                return ListPrice - DiscountAmount;
-            }
-        }
+        public Money PlacedPrice { get; set; }
 
-        public Money PlacedPriceWithTax
-        {
-            get
-            {
-                return ListPriceWithTax - DiscountAmountWithTax;
-            }
-        }
+        public Money PlacedPriceWithTax { get; set; }
 
         /// <summary>
         /// Gets the value of line item extended price (placed price * line item quantity)
         /// </summary>
-        public Money ExtendedPrice
-        {
-            get
-            {
-                return PlacedPrice * Quantity;
-            }
-        }
+        public Money ExtendedPrice { get; set; }
 
-        public Money ExtendedPriceWithTax
-        {
-            get
-            {
-                return PlacedPriceWithTax * Quantity;
-            }
-        }
+        public Money ExtendedPriceWithTax { get; set; }
 
         public Money DiscountAmount { get; set; }
-        public Money DiscountAmountWithTax
-        {
-            get
-            {
-                return DiscountAmount + DiscountAmount * TaxPercentRate;
-            }
-        }
+        public Money DiscountAmountWithTax { get; set; }
 
         /// <summary>
         /// Gets the value of line item total discount amount
         /// </summary>
-        public Money DiscountTotal
-        {
-            get
-            {
-                return DiscountAmount * Math.Max(1, Quantity);
-            }
-        }
+        public Money DiscountTotal { get; set; }
 
-        public Money DiscountTotalWithTax
-        {
-            get
-            {
-                return DiscountAmountWithTax * Math.Max(1, Quantity);
-            }
-        }
+        public Money DiscountTotalWithTax { get; set; }
 
         /// <summary>
         /// Used for dynamic properties management, contains object type string
@@ -291,13 +251,7 @@ namespace VirtoCommerce.Storefront.Model.Cart
         /// <summary>
         /// Gets or sets the value of total shipping tax amount
         /// </summary>
-        public virtual Money TaxTotal
-        {
-            get
-            {
-                return ExtendedPrice * TaxPercentRate;
-            }
-        }
+        public virtual Money TaxTotal { get; set; }
 
         public decimal TaxPercentRate { get; set; }
 
